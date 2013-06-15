@@ -1,0 +1,19 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      var access_token = '';
+      
+      window.location.hash = '#none';
+      if (urlHash.indexOf('access_token') >= 0) {
+        access_token = urlHash.slice(14, urlHash.indexOf('&'));
+      }
+
+      <!-- TODO push access token and uid to server-->
+      window.location = '/';
+    </script>
+  </head>
+  <body>
+  </body>
+</html>

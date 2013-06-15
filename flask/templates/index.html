@@ -3,22 +3,19 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta property="wb:webmaster" content="09fb158a74c27bb9" />
     <title>爱妹抖</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="sonicwu">
 
+    <link href="css/default.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <style>
-      body {
-        padding-top: 60px;
-      }
-    </style>
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
   </head>
 
   <body>
-
+    <!-- nav bar -->
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -30,18 +27,35 @@
           <a class="brand" href="#">爱妹抖</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li class="active"><a href="#">顺序</a></li>
+              <li><a href="#about">随机</a></li>
+            </ul>
+            <ul class="nav pull-right">
+              <li>
+                <a href="#login" role="button" data-toggle="modal">登录</a>
+              </li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
     </div>
 
+    <!-- login modal -->
+    <div id="login" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="loginLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="loginLabel">登录</h3>
+      </div>
+      <div class="modal-body text-center">
+        <a href="https://api.weibo.com/oauth2/authorize?client_id=907513447&response_type=token&redirect_uri=http://imeidou.com/wb_callback">
+          <img src="http://img.t.sinajs.cn/t4/appstyle/open/images/website/loginbtn/loginbtn_01.png" />
+        </a>
+      </div>
+    </div>
+
+    <!-- main container -->
     <div class="container">
       <div class="row">
-        <div class="span12"><h1>*Under Construction*</h1></div>
         <div class="span12">
           <div id="myCarousel" class="carousel slide">
           <ol class="carousel-indicators">
@@ -75,7 +89,7 @@
     <script>
       !function ($) {
         $(function(){
-          $('#myCarousel').carousel()
+          $('#myCarousel').carousel();
         })
       }(window.jQuery)
     </script>
