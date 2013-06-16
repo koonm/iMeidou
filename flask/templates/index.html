@@ -4,11 +4,9 @@
   <head>
     <meta charset="utf-8">
     <meta property="wb:webmaster" content="09fb158a74c27bb9" />
-    <title>爱妹抖</title>
+    <title>{{ conf.site_name }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="sonicwu">
-
+    
     <link href="css/default.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
@@ -24,7 +22,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">爱妹抖</a>
+          <a class="brand" href="#">{{ conf.site_name }}</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="active"><a href="#">顺序</a></li>
@@ -47,7 +45,7 @@
         <h3 id="loginLabel">登录</h3>
       </div>
       <div class="modal-body text-center">
-        <a href="https://api.weibo.com/oauth2/authorize?client_id=907513447&response_type=token&redirect_uri=http://imeidou.com/wb_callback">
+        <a href="https://api.weibo.com/oauth2/authorize?client_id={{ conf.weibo_app_key }}&response_type=token&redirect_uri=http://{{ conf.site_domain }}/wb_callback">
           <img src="http://img.t.sinajs.cn/t4/appstyle/open/images/website/loginbtn/loginbtn_01.png" />
         </a>
       </div>
@@ -99,7 +97,7 @@
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-40272531-2', 'imeidou.com');
+      ga('create', '{{ conf.ga_tracking_id }}', '{{ conf.site_domain }}');
       ga('send', 'pageview');
     </script>
   </body>

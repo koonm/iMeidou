@@ -2,16 +2,36 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>
     <script>
-      var access_token = '';
-      
-      window.location.hash = '#none';
-      if (urlHash.indexOf('access_token') >= 0) {
-        access_token = urlHash.slice(14, urlHash.indexOf('&'));
-      }
+      !function ($) {
+        $(function(){
+          var access_token = '';
+          var platform_uid = '';
 
-      <!-- TODO push access token and uid to server-->
-      window.location = '/';
+          var url_hash_array = window.location.hash.split('&');
+          for (var i = 0; i < url_hash_array.length; i++) {
+            var hash_kv = url_hash_array[i];
+            if (hash_kv.indexOf('#') == 0)
+              hash_kv = hash_kv.substring(1);
+
+            if (hash_kv.indexOf('access_token') == 0)
+              access_token = hash_kv.slice('access_token='.length);
+
+            if (hash_kv.indexOf('uid') == 0)
+              platform_uid = hash_kv.slice('uid='.length);
+
+            if (access_token && platform_uid)
+              break;
+          }
+          
+          $.post('/login', { access_token: access_token, platform_uid: platform_uid, source: 'sina_weibo' })
+              .done(function(data) {
+                window.location = '/';
+              });
+        })
+      }(window.jQuery)
     </script>
   </head>
   <body>
