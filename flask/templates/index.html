@@ -29,9 +29,18 @@
               <li><a href="#about">随机</a></li>
             </ul>
             <ul class="nav pull-right">
+              {% if user.name is defined %}
+              <li>
+                <a href="#">
+                  <i class="icon-user icon-white"></i>
+                  <font>{{ user.name }}</font>
+                </a>
+              </li>
+              {% else %}
               <li>
                 <a href="#login" role="button" data-toggle="modal">登录</a>
               </li>
+              {% endif %}
             </ul>
           </div><!--/.nav-collapse -->
         </div>
