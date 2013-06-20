@@ -24,17 +24,24 @@
           </button>
           <a class="brand" href="#">{{ conf.site_name }}</a>
           <div class="nav-collapse collapse">
-            <ul class="nav">
+            <ul class="nav x-top-nav">
               <li class="active"><a href="#">顺序</a></li>
               <li><a href="#about">随机</a></li>
             </ul>
             <ul class="nav pull-right">
               {% if user.name is defined %}
-              <li>
-                <a href="#">
+              <li class="active">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="icon-user icon-white"></i>
-                  <font>{{ user.name }}</font>
+                  {{ user.name }}
+                  <span class="caret"></span>
                 </a>
+                <ul class="dropdown-menu">
+                  <li class="divider"></li>
+                  <li>
+                    <a tabindex="-1" href="/logout">注销</a>
+                  </li>
+                </ul>
               </li>
               {% else %}
               <li>

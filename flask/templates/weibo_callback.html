@@ -25,13 +25,33 @@
             if (access_token && platform_uid)
               break;
           }
-          
-          $.post('/login', { access_token: access_token, platform_uid: platform_uid, source: 'sina_weibo' })
-              .done(function(data) {
-                window.location = '/';
-              });
+
+          // login failed.
+          if (!access_token || !platform_uid) {
+            window.location = '/';
+            return;
+          }
+
+          $.ajax({
+            type: 'GET',
+            url: 'https://api.weibo.com/2/users/show.json',
+            data: { access_token: access_token, uid: platform_uid },
+            contentType: "jsonp",
+            dataType: 'jsonp',
+            success: function (ret_val) {
+              login(access_token, JSON.stringify(ret_val))
+            }
+          });
+
         })
       }(window.jQuery)
+
+      function login(access_token, platform_data) {
+        $.post('/login', { access_token: access_token, source: 'sina_weibo', platform_data: platform_data})
+            .done(function(data) {
+              window.location = '/';
+            });
+      }
     </script>
   </head>
   <body>
