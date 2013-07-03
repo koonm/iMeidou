@@ -1,12 +1,10 @@
 # –*- encoding:utf8 –*-
 from flask import Flask, url_for, redirect, render_template, request, make_response, session
-import os
-import uuid
-import json
+import os, time, uuid, json
 import config
 import db
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../statics', static_url_path='')
 if not app.debug:
     log_dir = '../logs'
     if not os.path.exists(log_dir): os.makedirs(log_dir)
@@ -33,13 +31,17 @@ def index():
 def login():
     source = request.form['source']
     access_token = request.form['access_token']
+    expires_in = request.form['expires_in']
 
     platform_data = json.loads(request.form['platform_data'])
     if platform_data is None:
         return ''
 
     platform_user = platform_data['data']
-    if platform_user is None or 'id' not in platform_user or 'screen_name' not in platform_user:
+    if platform_user is None:
+        return ''
+
+    if 'id' not in platform_user or 'screen_name' not in platform_user:
         return ''
 
     pid = '{source}_{platform_uid}'.format(source=source, platform_uid=platform_user['id'])
@@ -54,13 +56,21 @@ def login():
     user_key = 'user:{uid}'.format(uid=uid)
 
     pipe = conn.pipeline()
+
+    # Save user data.
     pipe.hset(user_key, 'source', source)
     pipe.hset(user_key, 'platform_uid', platform_user['id'])
     pipe.hset(user_key, 'access_token', access_token)
     pipe.hset(user_key, 'name', platform_user['screen_name'])
+    
+    # Save token expires time.
+    if expires_in.isdigit():
+        token_score = int(time.time()) + int(expires_in)
+        pipe.zadd('token_expires', token_score, user_key)
+
     pipe.execute()
 
-    # Storing cookies.
+    # Set cookies.
     resp = make_response()
     resp.set_cookie('uid', uid, max_age=864000)
     return resp

@@ -9,6 +9,7 @@
         $(function(){
           var access_token = '';
           var platform_uid = '';
+          var expires_in = '';
 
           var url_hash_array = window.location.hash.split('&');
           for (var i = 0; i < url_hash_array.length; i++) {
@@ -21,6 +22,9 @@
 
             if (hash_kv.indexOf('uid') == 0)
               platform_uid = hash_kv.slice('uid='.length);
+
+            if (hash_kv.indexOf('expires_in') == 0)
+              expires_in = hash_kv.slice('expires_in='.length)
 
             if (access_token && platform_uid)
               break;
@@ -39,15 +43,15 @@
             contentType: "jsonp",
             dataType: 'jsonp',
             success: function (ret_val) {
-              login(access_token, JSON.stringify(ret_val))
+              login(access_token, expires_in, JSON.stringify(ret_val))
             }
           });
 
         })
       }(window.jQuery)
 
-      function login(access_token, platform_data) {
-        $.post('/login', { access_token: access_token, source: 'weibo', platform_data: platform_data})
+      function login(access_token, expires_in, platform_data) {
+        $.post('/login', {access_token: access_token, expires_in: expires_in, source: 'weibo', platform_data: platform_data})
             .done(function(data) {
               window.location = '/';
             });
