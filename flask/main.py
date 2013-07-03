@@ -1,5 +1,6 @@
 # –*- encoding:utf8 –*-
 from flask import Flask, url_for, redirect, render_template, request, make_response, session
+import os
 import uuid
 import json
 import config
@@ -7,9 +8,12 @@ import db
 
 app = Flask(__name__)
 if not app.debug:
+    log_dir = '../logs'
+    if not os.path.exists(log_dir): os.makedirs(log_dir)
+    
     import logging
     from logging.handlers import RotatingFileHandler
-    file_handler = RotatingFileHandler('../logs/app.log')
+    file_handler = RotatingFileHandler(log_dir + '/app.log')
     file_handler.setLevel(logging.WARNING)
     app.logger.addHandler(file_handler)
 

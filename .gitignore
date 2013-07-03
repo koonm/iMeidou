@@ -36,6 +36,6 @@ nosetests.xml
 
 #
 *.sh
-*.log
+#logs
 rsync_exclude.txt
 .DS_Store

@@ -47,7 +47,7 @@
       }(window.jQuery)
 
       function login(access_token, platform_data) {
-        $.post('/login', { access_token: access_token, source: 'sina_weibo', platform_data: platform_data})
+        $.post('/login', { access_token: access_token, source: 'weibo', platform_data: platform_data})
             .done(function(data) {
               window.location = '/';
             });
