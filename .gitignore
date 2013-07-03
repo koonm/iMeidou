@@ -35,6 +35,7 @@ nosetests.xml
 .pydevproject
 
 #
+config.py
 *.sh
 logs
 rsync_exclude.txt

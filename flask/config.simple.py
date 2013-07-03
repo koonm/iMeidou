@@ -1,12 +1,12 @@
 # –*- encoding:utf8 –*-
 site_name = u'爱妹抖'
 site_domain = 'imeidou.com'
-weibo_app_key = 907513447
+weibo_app_key = 1234567890
 ga_tracking_id = 'UA-40272531-2'
 
-db_host = 'imeidou.com'
+db_host = 'localhost'
 db_port = 6379
-db_pwd = 'CL1IzaHi8b5Ns83B4rrX'
+db_pwd = 'password'
 
 def getconfig():
     ret = globals()
